@@ -2,6 +2,7 @@
 import numpy as np
 from tabulate import tabulate
 from itertools import permutations
+import collections
 
 
 # function to print the lower diagonal
@@ -28,7 +29,9 @@ matrix = np.array([[0, 0, 1, 0, 1],
 rows = 5
 cols = 5
 
-temp_array = []
+temp_result = []
+cv_list = []
+count = 0
 
 print("Lower triangular matrix: ")
 lower(matrix, rows, cols)
@@ -46,48 +49,64 @@ possible_colour_vectors = {
 }
 
 perm = permutations(possible_colour_vectors.values())
-cv_list = []
 
-count = 0
+# temp_result.append([0, -1, 0, -1, 0])
 
-for items in list(perm):
-    if items in cv_list:
+for item in list(perm):
+    if item in cv_list:
         continue
     else:
-        cv_list.append(items)
-        print(items)
+        cv_list.append(item)
+        print(item)
         count += 1
-
 print("There are {} umber of unique possible colour vectors.".format(count))
 
-for i in range(len(cv_list)):
-    color_vector = np.array(cv_list[i])
-    result = np.matmul(matrix, color_vector)
-    print("----------------------------------------------------")
-    print("The resulting 1x5 matrix is {}".format(result), '\n')
 
-# temp_array.append([-2, -3, 2, 1, 2])
+# gives out the values for every iteration for every colour vector(10*10*5)
+for k in range(len(cv_list)):
+    for i in range(len(cv_list)):
+        color_vector = np.array(cv_list[i])
+        result = np.matmul(matrix, color_vector)
+        print("----------------------------------------------------")
+        print("The colour vector for this iteration is {}".format(color_vector))
+        print("The resulting 1x5 matrix is {}".format(result), '\n')
 
-# check for existing same variations
+        # # check for existing same variations
+        # for x in range(len(temp_result)):
+        #     if result not in temp_result:
+        #         temp_result.append(result)
+        #     else:
+        #         print("This colour vector variation already exists!")
 
-    for item in temp_array:
-        if item in result:
-            print("This variation already exists for row: {}".format(result[item]))
-        else:
-            temp_array.append(result)
+        # Checks for the dominant kind of edges.
+        for j in range(len(result)):
+            if result[j] > 0:
+                print("{}, Since the result is positive, it indicates there are more +1 edges for Row".format(result[j],
+                                                                                                              i + 1))
+            elif result[j] < 0:
+                print("{}, Since the result is negative, it indicates there are more -1 edges for Row".format(result[j],
+                                                                                                              i + 1))
+            else:
+                print("{}, Since the result is 0, it indicates the number of edges for both colours are same".format(
+                    result[j], j + 1))
 
-    # Checks for
-    for i in range(len(result)):
-        if result[i] > 0:
-            print("{}, Since the result is positive, it indicates there are more +1 edges for Row".format(result[i], i+1))
-        elif result[i] < 0:
-            print("{}, Since the result is negative, it indicates there are more -1 edges for Row".format(result[i], i+1))
-        else:
-            print("{}, Since the result is 0, it indicates the number of edges for both colours are same".format(result[i], i+1))
+    # pushes the list indices by 1, creating a new colour vector every iteration
+    temp_list = collections.deque(cv_list)
+    temp_list.rotate(-1)
+    updated_list = list(temp_list)
+    cv_list = updated_list
+    print("-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x", '\n')
 
-# expected result = [−2,−3,2,1,2]
+# print the changed indices
+# for x in updated_list:
+#     print(x)
 
-# creating table
-table = [['graph number', 'no_of_vertices', 'loop', 'cycles', 'iteration_length'],
-         [12, 'John', 'Smith', 39], ['Mary', 'Jane', 25], ['Jennifer', 'Doe', 28]]
-print(tabulate(table, headers='firstrow', tablefmt='grid'))
+# rotating the list by 1 to the left so that the colour vector can be updated for
+# 10 iterations eventually every time starting with a new color vector giving us a
+# total of 100 results.(10*10)
+
+
+# # creating table
+# table = [['graph number', 'no_of_vertices', 'loop', 'cycles', 'iteration_length'],
+#          [12, 'John', 'Smith', 39], ['Mary', 'Jane', 25], ['Jennifer', 'Doe', 28]]
+# print(tabulate(table, headers='firstrow', tablefmt='grid'))
