@@ -16,6 +16,8 @@ def lower(Matrix, row, col):
             else:
                 print(Matrix[i][j],
                       end=" ")
+                # adds the lower matrix the graph_array list as a list of list.
+                graph_array.append(Matrix[i][j])
 
         print(" ")
 
@@ -31,6 +33,7 @@ cols = 5
 
 temp_result = []
 cv_list = []
+graph_array = []
 count = 0
 
 print("Lower triangular matrix: ")
@@ -61,7 +64,6 @@ for item in list(perm):
         count += 1
 print("There are {} umber of unique possible colour vectors.".format(count))
 
-
 # gives out the values for every iteration for every colour vector(10*10*5)
 for k in range(len(cv_list)):
     for i in range(len(cv_list)):
@@ -70,13 +72,6 @@ for k in range(len(cv_list)):
         print("----------------------------------------------------")
         print("The colour vector for this iteration is {}".format(color_vector))
         print("The resulting 1x5 matrix is {}".format(result), '\n')
-
-        # # check for existing same variations
-        # for x in range(len(temp_result)):
-        #     if result not in temp_result:
-        #         temp_result.append(result)
-        #     else:
-        #         print("This colour vector variation already exists!")
 
         # Checks for the dominant kind of edges.
         for j in range(len(result)):
@@ -97,6 +92,15 @@ for k in range(len(cv_list)):
     cv_list = updated_list
     print("-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x", '\n')
 
+# # check for existing same variations
+#             for x in range(j):
+#                 if result not in temp_result:
+#                     temp_result.append(result)
+#                 else:
+#                     print("This colour vector variation already exists!")
+#
+# for g in temp_result:
+#     print(g)
 # print the changed indices
 # for x in updated_list:
 #     print(x)
@@ -105,8 +109,30 @@ for k in range(len(cv_list)):
 # 10 iterations eventually every time starting with a new color vector giving us a
 # total of 100 results.(10*10)
 
+# converts the lower matrix into a graph number
+strings = [str(integer) for integer in graph_array]
+graph_string = "".join(strings)
+print(graph_string)
 
-# # creating table
-# table = [['graph number', 'no_of_vertices', 'loop', 'cycles', 'iteration_length'],
-#          [12, 'John', 'Smith', 39], ['Mary', 'Jane', 25], ['Jennifer', 'Doe', 28]]
-# print(tabulate(table, headers='firstrow', tablefmt='grid'))
+
+# converts the graph number from binary to normal
+def convert_binary_to_decimal(graph_num_bin):
+    decimal = 0
+    for digit in graph_num_bin:
+        decimal = decimal * 2 + int(digit)
+    return decimal
+
+
+# another way of converting the number to its binary form
+print(convert_binary_to_decimal(graph_string))
+
+# using the function to print the value
+graph_num_in_dec = int(graph_string, 2)
+# print(graph_num_in_dec)
+
+# creating table
+table = [['graph number', 'no_of_vertices', 'loop', 'cycles', 'iteration_length'],
+         [graph_num_in_dec, rows, 'yes', 0, 0],
+         ['Mary', 'Jane', 25],
+         ]
+print(tabulate(table, headers='firstrow', tablefmt='grid'))
