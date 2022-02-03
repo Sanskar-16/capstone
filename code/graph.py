@@ -40,7 +40,7 @@ print("Lower triangular matrix: ")
 lower(matrix, rows, cols)
 print('\n')
 
-color_vertex = np.array([1, 1, -1, -1, -1])
+# color_vertex = np.array([1, 1, -1, -1, -1])
 
 # for getting all the possible variations of the graph
 possible_colour_vectors = {
@@ -70,7 +70,7 @@ for k in range(len(cv_list)):
         color_vector = np.array(cv_list[i])
         result = np.matmul(matrix, color_vector)
         print("----------------------------------------------------")
-        print("The colour vector for this iteration is {}".format(color_vector))
+        print("The colour vector for this iteration is {}".format(color_vector))  # negative no -> -1
         print("The resulting 1x5 matrix is {}".format(result), '\n')
 
         # Checks for the dominant kind of edges.
@@ -124,11 +124,11 @@ def convert_binary_to_decimal(graph_num_bin):
 
 
 # another way of converting the number to its binary form
-print(convert_binary_to_decimal(graph_string))
+# print(convert_binary_to_decimal(graph_string))
 
 # using the function to print the value
 graph_num_in_dec = int(graph_string, 2)
-# print(graph_num_in_dec)
+print(graph_num_in_dec)
 
 # creating table
 table = [['graph number', 'no_of_vertices', 'loop', 'cycles', 'iteration_length'],
