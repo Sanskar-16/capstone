@@ -65,7 +65,7 @@ temp_list = []
 for i in range(len(cv_list)):
     temp_list.clear()
     count = 0
-    temp_list.append(cv_list[i])
+    # temp_list.append(cv_list[i])
     color_vector = np.array(cv_list[i])
 
     while True:  # change this with a while loop
@@ -76,7 +76,7 @@ for i in range(len(cv_list)):
 
         if next_color_vector not in temp_list:
             temp_list.append(next_color_vector)
-            color_vector = next_color_vector
+            # color_vector = next_color_vector
             count = count + 1
             print("----------------        iteration {}         ---------------".format(count))
             print("The colour vector for this iteration is {}".format(color_vector))  # negative no -> -1
