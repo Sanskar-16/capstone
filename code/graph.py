@@ -61,12 +61,43 @@ print(cv_list)
 
 temp_list = []
 
+table = {'Graph number': ['Graph no.', 1, 2],
+         'Number of vertices': ['nov', rows, rows],
+         'loop': ['Year', 1998, 1998],
+         'cycle': ['Cycle', 1, 1],
+         'starting colour vertex': ['Starting cv', 1, 2],
+         'ending colour vertex': ['Ending cv', 1, 3]}
+
+
+# function that calculates the length of the loop in case the iteration does go into a loop
+def calculate_length_of_cycle(x):
+    for l in temp_list:
+        if l == next_color_vector:
+            length = temp_list[next_color_vector] - temp_list[next_color_vector]
+
+    return x
+
+
+# function checking for 0s in the color_vector and replacing them with i of the previous color_vector
+def check_for_zeroes(x):
+
+    for x in temp_list[next_color_vector]:
+        if x == 0:
+            x = temp_list[next_color_vector-1]
+
+    return x
+
+
 # trial code
 for i in range(len(cv_list)):
     temp_list.clear()
     count = 0
     # temp_list.append(cv_list[i])
     color_vector = np.array(cv_list[i])
+
+    # graph table appends here
+    table['starting colour vertex'].append(cv_list[i])
+    table['Number of vertices'].append(rows)
 
     while True:  # change this with a while loop
         # color_vector = np.array(cv_list[j])
@@ -75,6 +106,7 @@ for i in range(len(cv_list)):
         next_color_vector = np.sign(result).tolist()
 
         if next_color_vector not in temp_list:
+            # check_for_zeroes(next_color_vector)
             temp_list.append(next_color_vector)
             # color_vector = next_color_vector
             count = count + 1
@@ -86,15 +118,18 @@ for i in range(len(cv_list)):
         else:
             print("this already exists and the iteration loops on {} cycle".format(count))
             print("i increments by 1")
+            table['ending colour vertex'].append(next_color_vector)
+
             break
 print(temp_list)
 
-table = [['graph number', 'no_of_vertices', 'loop', 'cycles', 'iteration_length'],
-         [6, rows, 'yes', 0, 0],
-         ['Mary', 'Jane', 25],
-         ]
 print(tabulate(table, headers='firstrow', tablefmt='grid'))
-
 # look up into implying a lookup function which checks for the isomorphic graphs.
 # looking up properties of graphs like clique and centrality based on the graph's
 # adjacency matrix using a graph library in python
+
+# couple of ways to tabulate the data is
+# 1 convert the data into a csv by writing it in a file and converting it into a csv
+# 2 Use a dictionary to hold keys and values
+
+# try to make most of the code function based.
