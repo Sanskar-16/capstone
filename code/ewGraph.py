@@ -101,5 +101,3 @@ for i in range(len(cv_list)):
         print("The colour vector for this iteration is {}".format(color_vector))  # negative no -> -1
         print("The resulting 1x5 matrix is {}".format(result), '\n')
         print("The colour vector for the next iteration is {}".format(next_color_vector), '\n')
-
-# try to make most of the code fucntion based.

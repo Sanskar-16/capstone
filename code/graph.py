@@ -63,17 +63,18 @@ temp_list = []
 
 table = {'Graph number': ['Graph no.', 1, 2],
          'Number of vertices': ['nov', rows, rows],
-         'loop': ['Year', 1998, 1998],
-         'cycle': ['Cycle', 1, 1],
          'starting colour vertex': ['Starting cv', 1, 2],
-         'ending colour vertex': ['Ending cv', 1, 3]}
+         'ending colour vertex': ['Ending cv', 1, 3],
+         'loop': ['Loop', 1998, 1998],
+         'cycle': ['Cycle', 1, 1],
+         }
 
 
 # function that calculates the length of the loop in case the iteration does go into a loop
 def calculate_length_of_cycle(x):
     for l in temp_list:
         if l == next_color_vector:
-            length = temp_list[next_color_vector] - temp_list[next_color_vector]
+            x = temp_list[next_color_vector] - temp_list[next_color_vector]
 
     return x
 
@@ -88,16 +89,29 @@ def check_for_zeroes(x):
     return x
 
 
+def convert_binary_to_decimal():
+    strings = [str(integer) for integer in graph_array]
+    graph_string = "".join(strings)
+    # print("The graph number in binary is {}".format(graph_string))
+    graph_num_in_dec = int(graph_string, 2)
+    # print("The converted graph number from binary to decimal is {}".format(graph_num_in_dec))
+    table['Graph number'].append(graph_num_in_dec)
+
+
+def append_stuff_to_table():
+    # graph table appends here
+    convert_binary_to_decimal()
+    table['starting colour vertex'].append(cv_list[i])
+    table['Number of vertices'].append(rows)
+
+
 # trial code
 for i in range(len(cv_list)):
     temp_list.clear()
     count = 0
     # temp_list.append(cv_list[i])
     color_vector = np.array(cv_list[i])
-
-    # graph table appends here
-    table['starting colour vertex'].append(cv_list[i])
-    table['Number of vertices'].append(rows)
+    append_stuff_to_table()
 
     while True:  # change this with a while loop
         # color_vector = np.array(cv_list[j])
@@ -115,15 +129,19 @@ for i in range(len(cv_list)):
             print("The resulting 1x5 matrix is {}".format(result), '\n')
             print("The colour vector for the next iteration is {}".format(next_color_vector), '\n')
             print(temp_list)
+            # add an elif here to check if the program loops, whether it loops over 1 cv or a loop of
+            # different ones to fill up the loop section of the table.
+            # further implement the cycle function to check for the number of cycles it performs.
         else:
             print("this already exists and the iteration loops on {} cycle".format(count))
             print("i increments by 1")
             table['ending colour vertex'].append(next_color_vector)
-
+            table['loop'].append('yes')
             break
 print(temp_list)
 
 print(tabulate(table, headers='firstrow', tablefmt='grid'))
+
 # look up into implying a lookup function which checks for the isomorphic graphs.
 # looking up properties of graphs like clique and centrality based on the graph's
 # adjacency matrix using a graph library in python
