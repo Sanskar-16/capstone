@@ -61,32 +61,30 @@ print(cv_list)
 
 temp_list = []
 
-table = {'Graph number': ['Graph no.', 1, 2],
-         'Number of vertices': ['nov', rows, rows],
-         'starting colour vertex': ['Starting cv', 1, 2],
-         'ending colour vertex': ['Ending cv', 1, 3],
-         'loop': ['Loop', 1998, 1998],
-         'cycle': ['Cycle', 1, 1],
+table = {'Graph number': ['Graph no.', 1],
+         'Number of vertices': ['nov', 1],
+         'starting colour vertex': ['Starting cv', 1],
+         'ending colour vertex': ['Ending cv', 1],
+         'loop': ['Loop', 1],
+         'cycle': ['Cycle', 1],
          }
 
 
-# function that calculates the length of the loop in case the iteration does go into a loop
-def calculate_length_of_cycle(x):
-    for l in temp_list:
-        if l == next_color_vector:
-            x = temp_list[next_color_vector] - temp_list[next_color_vector]
-
-    return x
+# function that calculates the ending colour vector
+# the cycle it loops on in case the iteration does go into a loop
+def calculate_length_of_cycle():
+    length = len(temp_list) - temp_list.index(next_color_vector)
+    table['ending colour vertex'].append(next_color_vector)
+    table['loop'].append('yes')
+    table['cycle'].append(length)
 
 
 # function checking for 0s in the color_vector and replacing them with i of the previous color_vector
 def check_for_zeroes(x):
-
-    for x in temp_list[next_color_vector]:
-        if x == 0:
-            x = temp_list[next_color_vector-1]
-
-    return x
+    for i in x:
+        if x[i] == 0:
+            x[i] = color_vector[i]
+# try to optimize this function by reducing the time complexity
 
 
 def convert_binary_to_decimal():
@@ -105,49 +103,56 @@ def append_stuff_to_table():
     table['Number of vertices'].append(rows)
 
 
+pi = 0
 # trial code
 for i in range(len(cv_list)):
+    pi = pi + 1
+    print("             Primary iteration {}            ".format(pi))
     temp_list.clear()
     count = 0
-    # temp_list.append(cv_list[i])
     color_vector = np.array(cv_list[i])
     append_stuff_to_table()
 
-    while True:  # change this with a while loop
-        # color_vector = np.array(cv_list[j])
-        result = np.matmul(matrix, color_vector)  # add a checker for 0 values here and it should replace
-        # all the values to the prev colo_vector
+    while True:
+        result = np.matmul(matrix, color_vector)
         next_color_vector = np.sign(result).tolist()
+        check_for_zeroes(next_color_vector)
 
         if next_color_vector not in temp_list:
-            # check_for_zeroes(next_color_vector)
+            # temp_list.append(color_vector)
             temp_list.append(next_color_vector)
-            # color_vector = next_color_vector
             count = count + 1
-            print("----------------        iteration {}         ---------------".format(count))
-            print("The colour vector for this iteration is {}".format(color_vector))  # negative no -> -1
+            print("             Secondary iteration {}          ".format(count))
+            print("The colour vector for this iteration is {}".format(color_vector)) # negative no -> -1
             print("The resulting 1x5 matrix is {}".format(result), '\n')
+            color_vector = next_color_vector
             print("The colour vector for the next iteration is {}".format(next_color_vector), '\n')
-            print(temp_list)
             # add an elif here to check if the program loops, whether it loops over 1 cv or a loop of
             # different ones to fill up the loop section of the table.
             # further implement the cycle function to check for the number of cycles it performs.
+
         else:
-            print("this already exists and the iteration loops on {} cycle".format(count))
-            print("i increments by 1")
-            table['ending colour vertex'].append(next_color_vector)
-            table['loop'].append('yes')
+            print("The colour vector iteration repeats here on this row {}".format(count))
+            calculate_length_of_cycle()
             break
-print(temp_list)
+
+    print("The temp_list is {}".format(temp_list))
 
 print(tabulate(table, headers='firstrow', tablefmt='grid'))
 
-# look up into implying a lookup function which checks for the isomorphic graphs.
-# looking up properties of graphs like clique and centrality based on the graph's
-# adjacency matrix using a graph library in python
+# work on the function which checks for 0s in the colour vector before proceeding ahead with the calculation.
+# for the loop function, make a for loop which says for ncv in templist
 
 # couple of ways to tabulate the data is
 # 1 convert the data into a csv by writing it in a file and converting it into a csv
-# 2 Use a dictionary to hold keys and values
 
-# try to make most of the code function based.
+# look up into implying a lookup function which checks for the isomorphic graphs.
+# adjacency matrix using a graph library in python
+# looking up properties of graphs like clique and centrality based on the graph's
+
+# list of all the possible graphs with 5 vertices
+# have a function which checks whether they are isomorphic and connected(should reduce the time complexity
+# by skipping all teh non connected and te isomorphic ones
+# Also can have a function which checks whether the iteration of this specific type
+# has already been done before.
+# check if a function can tell us if the graph is connected   just by taking at the adj matrix
