@@ -6,7 +6,8 @@ from itertools import product
 # array keeps hold of the lower matrix, later helps n conversion from binary to decimal
 graph_array = []
 # counter to check for already existing colour vector variations
-# count = 0
+pi = 0
+
 # a list containing all the color vectors
 cv_list = []
 # result holds the value of the multiplication between the matrix and the colour vector
@@ -66,7 +67,7 @@ table = {'Graph number': ['Graph no.', 1],
          'starting colour vertex': ['Starting cv', 1],
          'ending colour vertex': ['Ending cv', 1],
          'loop': ['Loop', 1],
-         'cycle': ['Cycle', 1],
+         'cycle': ['Cycle', 1]
          }
 
 
@@ -84,6 +85,8 @@ def check_for_zeroes(x):
     for i in x:
         if x[i] == 0:
             x[i] = color_vector[i]
+
+
 # try to optimize this function by reducing the time complexity
 
 
@@ -103,7 +106,6 @@ def append_stuff_to_table():
     table['Number of vertices'].append(rows)
 
 
-pi = 0
 # trial code
 for i in range(len(cv_list)):
     pi = pi + 1
@@ -119,11 +121,13 @@ for i in range(len(cv_list)):
         check_for_zeroes(next_color_vector)
 
         if next_color_vector not in temp_list:
-            # temp_list.append(color_vector)
+            # check for 0s in multiple secondary iterations (ex - iteration 22)
+            # Als append the colour vector because currently the first vector for the iteration dos not get appended
+            # also assign the colour vector to the next colour vector because currently there is no updating.
             temp_list.append(next_color_vector)
             count = count + 1
             print("             Secondary iteration {}          ".format(count))
-            print("The colour vector for this iteration is {}".format(color_vector)) # negative no -> -1
+            print("The colour vector for this iteration is {}".format(color_vector))  # negative no -> -1
             print("The resulting 1x5 matrix is {}".format(result), '\n')
             color_vector = next_color_vector
             print("The colour vector for the next iteration is {}".format(next_color_vector), '\n')
@@ -142,9 +146,6 @@ print(tabulate(table, headers='firstrow', tablefmt='grid'))
 
 # work on the function which checks for 0s in the colour vector before proceeding ahead with the calculation.
 # for the loop function, make a for loop which says for ncv in templist
-
-# couple of ways to tabulate the data is
-# 1 convert the data into a csv by writing it in a file and converting it into a csv
 
 # look up into implying a lookup function which checks for the isomorphic graphs.
 # adjacency matrix using a graph library in python
