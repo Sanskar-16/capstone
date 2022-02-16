@@ -82,9 +82,9 @@ def calculate_length_of_cycle():
 
 # function checking for 0s in the color_vector and replacing them with i of the previous color_vector
 def check_for_zeroes(x):
-    for i in x:
-        if x[i] == 0:
-            x[i] = color_vector[i]
+    for k in range(len(x)):
+        if x[k] == 0:
+            x[k] = color_vector[k]
 
 
 # try to optimize this function by reducing the time complexity
@@ -118,12 +118,11 @@ for i in range(len(cv_list)):
     while True:
         result = np.matmul(matrix, color_vector)
         next_color_vector = np.sign(result).tolist()
+        if count == 0:
+            temp_list.append(color_vector.tolist())
         check_for_zeroes(next_color_vector)
 
         if next_color_vector not in temp_list:
-            # check for 0s in multiple secondary iterations (ex - iteration 22)
-            # Als append the colour vector because currently the first vector for the iteration dos not get appended
-            # also assign the colour vector to the next colour vector because currently there is no updating.
             temp_list.append(next_color_vector)
             count = count + 1
             print("             Secondary iteration {}          ".format(count))
@@ -144,8 +143,6 @@ for i in range(len(cv_list)):
 
 print(tabulate(table, headers='firstrow', tablefmt='grid'))
 
-# work on the function which checks for 0s in the colour vector before proceeding ahead with the calculation.
-# for the loop function, make a for loop which says for ncv in templist
 
 # look up into implying a lookup function which checks for the isomorphic graphs.
 # adjacency matrix using a graph library in python
