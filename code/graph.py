@@ -7,12 +7,12 @@ from itertools import product
 graph_array = []
 # counter to check for already existing colour vector variations
 pi = 0
-
 # a list containing all the color vectors
 cv_list = []
 # result holds the value of the multiplication between the matrix and the colour vector
 result = 0
 next_color_vector = 0
+temp_list = []
 
 
 # function to print the lower diagonal
@@ -60,7 +60,6 @@ def get_cv_list():
 get_cv_list()
 print(cv_list)
 
-temp_list = []
 
 table = {'Graph number': ['Graph no.', 1],
          'Number of vertices': ['nov', 1],
