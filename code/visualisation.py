@@ -19,7 +19,7 @@ class GraphVisualization:
         G = nx.Graph()
         G.add_edges_from(self.visual)
         color_list = ["white", "black", "white", "black", "white"]
-        nx.draw_networkx(G, node_color=color_list, with_labels=True, font_color='limegreen')
+        nx.draw_networkx(G, node_color=color_list, with_labels=True, font_color='grey')
         plt.show()
 
 

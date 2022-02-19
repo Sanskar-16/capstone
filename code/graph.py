@@ -37,6 +37,7 @@ matrix = np.array([[0, 0, 1, 0, 1],
                    [1, 1, 0, 0, 0],
                    [0, 1, 0, 0, 0],
                    [1, 1, 0, 0, 0]])
+
 rows = 5
 cols = 5
 
@@ -105,7 +106,7 @@ def append_stuff_to_table():
     table['Number of vertices'].append(rows)
 
 
-# trial code
+# not trial code
 for i in range(len(cv_list)):
     pi = pi + 1
     print("             Primary iteration {}            ".format(pi))
@@ -153,3 +154,6 @@ print(tabulate(table, headers='firstrow', tablefmt='grid'))
 # Also can have a function which checks whether the iteration of this specific type
 # has already been done before.
 # check if a function can tell us if the graph is connected   just by taking at the adj matrix
+
+# as of now the color vector gets appended first and then it gets checked and calculated further
+# which means that it does not show the initial multiplication. Ex iteration 32
