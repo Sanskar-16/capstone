@@ -13,6 +13,25 @@ cv_list = []
 result = 0
 next_color_vector = 0
 temp_list = []
+# graph_list = [[1010011001], [0o110101100]]
+
+graph_list = [[[0, 0, 1, 0, 1],
+               [0, 0, 1, 1, 1],
+               [1, 1, 0, 0, 0],
+               [0, 1, 0, 0, 0],
+               [1, 1, 0, 0, 0]],
+              [[0, 0, 1, 0, 1],
+               [0, 0, 1, 1, 1],
+               [1, 1, 0, 0, 0],
+               [0, 1, 0, 0, 0],
+               [1, 1, 0, 0, 0]]
+              ]
+
+matrix = np.array([[0, 0, 1, 0, 1],
+                   [0, 0, 1, 1, 1],
+                   [1, 1, 0, 0, 0],
+                   [0, 1, 0, 0, 0],
+                   [1, 1, 0, 0, 0]])
 
 
 # function to print the lower diagonal
@@ -32,19 +51,14 @@ def lower(Matrix, row, col):
         print(" ")
 
 
-matrix = np.array([[0, 0, 1, 0, 1],
-                   [0, 0, 1, 1, 1],
-                   [1, 1, 0, 0, 0],
-                   [0, 1, 0, 0, 0],
-                   [1, 1, 0, 0, 0]])
-
 rows = 5
 cols = 5
 
-# print the lower diagonal of the matrix multiplication
-print("Lower triangular matrix: ")
-lower(matrix, rows, cols)
-print('\n')
+
+# # print the lower diagonal of the matrix multiplication
+# print("Lower triangular matrix: ")
+# lower(matrix, rows, cols)
+# print('\n')
 
 
 def get_cv_list():
@@ -60,7 +74,6 @@ def get_cv_list():
 
 get_cv_list()
 print(cv_list)
-
 
 table = {'Graph number': ['Graph no.', 1],
          'Number of vertices': ['nov', 1],
@@ -101,47 +114,50 @@ def convert_binary_to_decimal():
 
 def append_stuff_to_table():
     # graph table appends here
-    convert_binary_to_decimal()
+    # convert_binary_to_decimal()
     table['starting colour vertex'].append(cv_list[i])
     table['Number of vertices'].append(rows)
 
 
 # not trial code
-for i in range(len(cv_list)):
-    pi = pi + 1
-    print("             Primary iteration {}            ".format(pi))
-    temp_list.clear()
-    count = 0
-    color_vector = np.array(cv_list[i])
-    append_stuff_to_table()
+for g in range(len(graph_list)):
+    matrix = np.array(graph_list[g])
+    pi = 0
+    for i in range(len(cv_list)):
+        pi = pi + 1
+        print("             Primary iteration {}            ".format(pi))
+        temp_list.clear()
+        count = 0
+        color_vector = np.array(cv_list[i])
+        append_stuff_to_table()
 
-    while True:
-        result = np.matmul(matrix, color_vector)
-        next_color_vector = np.sign(result).tolist()
-        if count == 0:
-            temp_list.append(color_vector.tolist())
-        check_for_zeroes(next_color_vector)
+        while True:
+            result = np.matmul(matrix, color_vector)
+            next_color_vector = np.sign(result).tolist()
+            if count == 0:
+                temp_list.append(color_vector.tolist())
+            check_for_zeroes(next_color_vector)
 
-        if next_color_vector not in temp_list:
-            temp_list.append(next_color_vector)
-            count = count + 1
-            print("             Secondary iteration {}          ".format(count))
-            print("The colour vector for this iteration is {}".format(color_vector))  # negative no -> -1
-            print("The resulting 1x5 matrix is {}".format(result), '\n')
-            color_vector = next_color_vector
-            print("The colour vector for the next iteration is {}".format(next_color_vector), '\n')
-            # add an elif here to check if the program loops, whether it loops over 1 cv or a loop of
-            # different ones to fill up the loop section of the table.
-            # further implement the cycle function to check for the number of cycles it performs.
+            if next_color_vector not in temp_list:
+                temp_list.append(next_color_vector)
+                count = count + 1
+                print("             Secondary iteration {}          ".format(count))
+                print("The colour vector for this iteration is {}".format(color_vector))  # negative no -> -1
+                print("The resulting 1x5 matrix is {}".format(result), '\n')
+                color_vector = next_color_vector
+                print("The colour vector for the next iteration is {}".format(next_color_vector), '\n')
+                # add an elif here to check if the program loops, whether it loops over 1 cv or a loop of
+                # different ones to fill up the loop section of the table.
+                # further implement the cycle function to check for the number of cycles it performs.
 
-        else:
-            print("The colour vector iteration repeats here on this row {}".format(count))
-            calculate_length_of_cycle()
-            break
+            else:
+                print("The colour vector iteration repeats here on this row {}".format(count))
+                calculate_length_of_cycle()
+                break
 
-    print("The temp_list is {}".format(temp_list))
+        print("The temp_list is {}".format(temp_list))
+    print(tabulate(table, headers='firstrow', tablefmt='grid'))
 
-print(tabulate(table, headers='firstrow', tablefmt='grid'))
 
 
 # look up into implying a lookup function which checks for the isomorphic graphs.
