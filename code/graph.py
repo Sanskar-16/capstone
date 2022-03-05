@@ -3,6 +3,7 @@ import numpy as np
 from tabulate import tabulate
 from itertools import product
 
+# variables
 # array keeps hold of the lower matrix, later helps n conversion from binary to decimal
 graph_array = []
 # counter to check for already existing colour vector variations
@@ -14,18 +15,32 @@ result = 0
 next_color_vector = 0
 temp_list = []
 # graph_list = [[1010011001], [0o110101100]]
+n = int(input("Enter the number of vertices you want to do this for"))
+N = int(1 / 2 * n * (n - 1))
 
-graph_list = [[[0, 0, 1, 0, 1],
-               [0, 0, 1, 1, 1],
-               [1, 1, 0, 0, 0],
-               [0, 1, 0, 0, 0],
-               [1, 1, 0, 0, 0]],
-              [[0, 1, 0, 0, 1],
-               [1, 0, 1, 0, 0],
-               [0, 1, 0, 1, 0],
-               [0, 0, 1, 0, 1],
-               [1, 0, 0, 1, 0]]
-              ]
+print("The number of vertices you entered are {}".format(n))
+print("N = {}".format(N))
+
+# graph_list = [[[0, 0, 1, 0, 1],
+#                [0, 0, 1, 1, 1],
+#                [1, 1, 0, 0, 0],
+#                [0, 1, 0, 0, 0],
+#                [1, 1, 0, 0, 0]],
+#               [[0, 1, 0, 0, 1],
+#                [1, 0, 1, 0, 0],
+#                [0, 1, 0, 1, 0],
+#                [0, 0, 1, 0, 1],
+#                [1, 0, 0, 1, 0]]
+#               ]
+
+graph_list = []
+graph_int_list = []
+
+zeroes = [[0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0]]
 
 matrix = np.array([[0, 0, 1, 0, 1],
                    [0, 0, 1, 1, 1],
@@ -51,35 +66,65 @@ def lower(Matrix, row, col):
         print(" ")
 
 
-rows = 5
-cols = 5
+# print the lower diagonal of the matrix multiplication
+print("Lower triangular matrix: ")
+lower(matrix, n, n)
+print('\n')
 
 
-# # print the lower diagonal of the matrix multiplication
-# print("Lower triangular matrix: ")
-# lower(matrix, rows, cols)
-# print('\n')
-
-
-def get_cv_list():
+def get_cv_list(rep):
     counter = 0
-    for vector in product([1, -1], repeat=5):
+    for vector in product([1, -1], repeat=rep):
         # print(roll)
-        cv_list.append(vector)
+        cv_list.append(list(vector))
         counter = counter + 1
     print("There are {} number of colour vectors in the cv_list".format(counter))
 
     return cv_list
 
 
-get_cv_list()
+def get_graph_int_list(rep):
+    counter = 0
+    for graph in product([1, 0], repeat=rep):
+        # print(roll)
+        graph_int_list.append(list(graph))
+        counter = counter + 1
+    print("There total number of graphs are {}".format(counter))
+
+    return graph_int_list
+
+
+get_cv_list(n)
 print(cv_list)
+
+get_graph_int_list(N)
+print(graph_int_list)
+
+
+def convert_graph_list_to_matrix():
+    counter = 0
+
+    for k in graph_int_list:
+        for i in range(len((1, n))):
+            for j in range(len((0, i - 1))):
+                zeroes[i][j] = k[i]
+
+        graph_list.append(zeroes)
+
+        counter = counter + 1
+
+    print(counter)
+
+
+convert_graph_list_to_matrix()
+print(graph_list)
 
 table = {'Graph number': ['Graph no.', 1],
          'Number of vertices': ['nov', 1],
          'starting colour vertex': ['Starting cv', 1],
          'ending colour vertex': ['Ending cv', 1],
          'loop': ['Loop', 1],
+         'step time': ['Step time', 1],
          'cycle': ['Cycle', 1]
          }
 
@@ -90,7 +135,7 @@ def calculate_length_of_cycle():
     length = len(temp_list) - temp_list.index(next_color_vector)
     table['ending colour vertex'].append(next_color_vector)
     table['loop'].append('yes')
-    table['cycle'].append(length)
+    table['step time'].append(length)
 
 
 # function checking for 0s in the color_vector and replacing them with i of the previous color_vector
@@ -116,7 +161,7 @@ def append_stuff_to_table():
     # graph table appends here
     # convert_binary_to_decimal()
     table['starting colour vertex'].append(cv_list[i])
-    table['Number of vertices'].append(rows)
+    table['Number of vertices'].append(n)
 
 
 # not trial code
@@ -161,19 +206,12 @@ text_file = open("output.csv", "w")
 text_file.write(table_data)
 text_file.close()
 
-# look up into implying a lookup function which checks for the isomorphic graphs.
 # adjacency matrix using a graph library in python
 # looking up properties of graphs like clique and centrality based on the graph's
 
-# list of all the possible graphs with 5 vertices
 # have a function which checks whether they are isomorphic and connected(should reduce the time complexity
 # by skipping all teh non connected and te isomorphic ones
 # Also can have a function which checks whether the iteration of this specific type
 # has already been done before.
-# check if a function can tell us if the graph is connected   just by taking at the adj matrix
 
-# as of now the color vector gets appended first and then it gets checked and calculated further
-# which means that it does not show the initial multiplication. Ex iteration 32
-
-# change cycle to 'step time' a new column
 # and make a new column named cycle then which calculates if same vector repeats or oevr diff ones
