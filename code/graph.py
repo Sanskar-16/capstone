@@ -125,7 +125,7 @@ for g in range(len(graph_list)):
     pi = 0
     for i in range(len(cv_list)):
         pi = pi + 1
-        print("             Primary iteration {}            ".format(pi))
+        # print("             Primary iteration {}            ".format(pi))
         temp_list.clear()
         count = 0
         color_vector = np.array(cv_list[i])
@@ -141,24 +141,25 @@ for g in range(len(graph_list)):
             if next_color_vector not in temp_list:
                 temp_list.append(next_color_vector)
                 count = count + 1
-                print("             Secondary iteration {}          ".format(count))
-                print("The colour vector for this iteration is {}".format(color_vector))  # negative no -> -1
-                print("The resulting 1x5 matrix is {}".format(result), '\n')
+                # print("             Secondary iteration {}          ".format(count))
+                # print("The colour vector for this iteration is {}".format(color_vector))  # negative no -> -1
+                # print("The resulting 1x5 matrix is {}".format(result), '\n')
                 color_vector = next_color_vector
-                print("The colour vector for the next iteration is {}".format(next_color_vector), '\n')
+                # print("The colour vector for the next iteration is {}".format(next_color_vector), '\n')
                 # add an elif here to check if the program loops, whether it loops over 1 cv or a loop of
                 # different ones to fill up the loop section of the table.
-                # further implement the cycle function to check for the number of cycles it performs.
 
             else:
-                print("The colour vector iteration repeats here on this row {}".format(count))
+                # print("The colour vector iteration repeats here on this row {}".format(count))
                 calculate_length_of_cycle()
                 break
 
-        print("The temp_list is {}".format(temp_list))
-    print(tabulate(table, headers='firstrow', tablefmt='grid'))
+        # print("The temp_list is {}".format(temp_list))
 
-
+table_data = tabulate(table, headers='firstrow', tablefmt='simple', showindex='always')
+text_file = open("output.csv", "w")
+text_file.write(table_data)
+text_file.close()
 
 # look up into implying a lookup function which checks for the isomorphic graphs.
 # adjacency matrix using a graph library in python
@@ -173,3 +174,6 @@ for g in range(len(graph_list)):
 
 # as of now the color vector gets appended first and then it gets checked and calculated further
 # which means that it does not show the initial multiplication. Ex iteration 32
+
+# change cycle to 'step time' a new column
+# and make a new column named cycle then which calculates if same vector repeats or oevr diff ones
