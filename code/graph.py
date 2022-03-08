@@ -2,6 +2,7 @@
 import numpy as np
 from tabulate import tabulate
 from itertools import product
+import networkx as nx
 
 # variables
 # array keeps hold of the lower matrix, later helps n conversion from binary to decimal
@@ -36,11 +37,7 @@ print("N = {}".format(N))
 graph_list = []
 graph_int_list = []
 
-zeroes = [[0, 0, 0, 0, 0],
-          [0, 0, 0, 0, 0],
-          [0, 0, 0, 0, 0],
-          [0, 0, 0, 0, 0],
-          [0, 0, 0, 0, 0]]
+zeroes = [[]]
 
 matrix = np.array([[0, 0, 1, 0, 1],
                    [0, 0, 1, 1, 1],
@@ -67,9 +64,25 @@ def lower(Matrix, row, col):
 
 
 # print the lower diagonal of the matrix multiplication
-print("Lower triangular matrix: ")
-lower(matrix, n, n)
-print('\n')
+# print("Lower triangular matrix: ")
+# lower(matrix, n, n)
+# print('\n')
+
+
+def get_zero_matrix(x):
+    zeros = [[0] * x for _ in range(x)]
+    print(zeros)
+
+
+get_zero_matrix(n)
+
+
+def check_connected(x):
+    for _ in x:
+        if nx.is_connected(x):
+            continue
+        else:
+            break
 
 
 def get_cv_list(rep):
@@ -105,9 +118,10 @@ def convert_graph_list_to_matrix():
     counter = 0
 
     for k in graph_int_list:
-        for i in range(len((1, n))):
-            for j in range(len((0, i - 1))):
-                zeroes[i][j] = k[i]
+        for i in range(1, n):
+            for j in range(0, i):
+                zeroes[i][j] = k[counter]
+                counter = counter + 1
 
         graph_list.append(zeroes)
 
@@ -116,6 +130,7 @@ def convert_graph_list_to_matrix():
     print(counter)
 
 
+print(graph_list)
 convert_graph_list_to_matrix()
 print(graph_list)
 
@@ -163,48 +178,47 @@ def append_stuff_to_table():
     table['starting colour vertex'].append(cv_list[i])
     table['Number of vertices'].append(n)
 
-
 # not trial code
-for g in range(len(graph_list)):
-    matrix = np.array(graph_list[g])
-    pi = 0
-    for i in range(len(cv_list)):
-        pi = pi + 1
-        # print("             Primary iteration {}            ".format(pi))
-        temp_list.clear()
-        count = 0
-        color_vector = np.array(cv_list[i])
-        append_stuff_to_table()
-
-        while True:
-            result = np.matmul(matrix, color_vector)
-            next_color_vector = np.sign(result).tolist()
-            if count == 0:
-                temp_list.append(color_vector.tolist())
-            check_for_zeroes(next_color_vector)
-
-            if next_color_vector not in temp_list:
-                temp_list.append(next_color_vector)
-                count = count + 1
-                # print("             Secondary iteration {}          ".format(count))
-                # print("The colour vector for this iteration is {}".format(color_vector))  # negative no -> -1
-                # print("The resulting 1x5 matrix is {}".format(result), '\n')
-                color_vector = next_color_vector
-                # print("The colour vector for the next iteration is {}".format(next_color_vector), '\n')
-                # add an elif here to check if the program loops, whether it loops over 1 cv or a loop of
-                # different ones to fill up the loop section of the table.
-
-            else:
-                # print("The colour vector iteration repeats here on this row {}".format(count))
-                calculate_length_of_cycle()
-                break
-
-        # print("The temp_list is {}".format(temp_list))
-
-table_data = tabulate(table, headers='firstrow', tablefmt='simple', showindex='always')
-text_file = open("output.csv", "w")
-text_file.write(table_data)
-text_file.close()
+# for g in range(len(graph_list)):
+#     matrix = np.array(graph_list[g])
+#     pi = 0
+#     for i in range(len(cv_list)):
+#         pi = pi + 1
+#         # print("             Primary iteration {}            ".format(pi))
+#         temp_list.clear()
+#         count = 0
+#         color_vector = np.array(cv_list[i])
+#         append_stuff_to_table()
+#
+#         while True:
+#             result = np.matmul(matrix, color_vector)
+#             next_color_vector = np.sign(result).tolist()
+#             if count == 0:
+#                 temp_list.append(color_vector.tolist())
+#             check_for_zeroes(next_color_vector)
+#
+#             if next_color_vector not in temp_list:
+#                 temp_list.append(next_color_vector)
+#                 count = count + 1
+#                 # print("             Secondary iteration {}          ".format(count))
+#                 # print("The colour vector for this iteration is {}".format(color_vector))  # negative no -> -1
+#                 # print("The resulting 1x5 matrix is {}".format(result), '\n')
+#                 color_vector = next_color_vector
+#                 # print("The colour vector for the next iteration is {}".format(next_color_vector), '\n')
+#                 # add an elif here to check if the program loops, whether it loops over 1 cv or a loop of
+#                 # different ones to fill up the loop section of the table.
+#
+#             else:
+#                 # print("The colour vector iteration repeats here on this row {}".format(count))
+#                 calculate_length_of_cycle()
+#                 break
+#
+#         # print("The temp_list is {}".format(temp_list))
+#
+# table_data = tabulate(table, headers='firstrow', tablefmt='simple', showindex='always')
+# text_file = open("output.csv", "w")
+# text_file.write(table_data)
+# text_file.close()
 
 # adjacency matrix using a graph library in python
 # looking up properties of graphs like clique and centrality based on the graph's
