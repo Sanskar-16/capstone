@@ -3,7 +3,9 @@ import numpy as np
 from tabulate import tabulate
 from itertools import product
 import networkx as nx
+import time
 
+start_time = time.time()
 # variables
 # array keeps hold of the lower matrix, later helps n conversion from binary to decimal
 graph_array = []
@@ -173,7 +175,7 @@ text_file.write(table_data)
 text_file.close()
 
 print("Program completed")
-
+print("--- %s seconds ---" % (time.time() - start_time))
 # adjacency matrix using a graph library in python
 # looking up properties of graphs like clique and centrality based on the graph's
 
