@@ -15,31 +15,9 @@ cv_list = []
 result = 0
 next_color_vector = 0
 temp_list = []
-# graph_list = [[1010011001], [0o110101100]]
-
-# graph_list = [[[0, 0, 1, 0, 1],
-#                [0, 0, 1, 1, 1],
-#                [1, 1, 0, 0, 0],
-#                [0, 1, 0, 0, 0],
-#                [1, 1, 0, 0, 0]],
-#               [[0, 1, 0, 0, 1],
-#                [1, 0, 1, 0, 0],
-#                [0, 1, 0, 1, 0],
-#                [0, 0, 1, 0, 1],
-#                [1, 0, 0, 1, 0]]
-#               ]
-
 graph_list = []
 graph_int_list = []
-
 zero = [[]]
-
-# matrix = np.array([[0, 0, 1, 0, 1],
-#                    [0, 0, 1, 1, 1],
-#                    [1, 1, 0, 0, 0],
-#                    [0, 1, 0, 0, 0],
-#                    [1, 1, 0, 0, 0]])
-
 table = {'Graph number': ['Graph no.', 1],
          'Number of vertices': ['nov', 1],
          'starting colour vertex': ['Starting cv', 1],
@@ -48,29 +26,6 @@ table = {'Graph number': ['Graph no.', 1],
          'step time': ['Step time', 1],
          'cycle': ['Cycle', 1]
          }
-
-
-# function to print the lower diagonal
-def lower(Matrix, row, col):
-    for i in range(0, row):
-        for j in range(0, col):
-            if i == j:
-                print("0", end=" ")
-            elif i < j:
-                print(" ", end=" ")
-            else:
-                print(Matrix[i][j],
-                      end=" ")
-                # adds the lower matrix the graph_array list as a list of list.
-                graph_array.append(Matrix[i][j])
-
-        print(" ")
-
-
-# print the lower diagonal of the matrix multiplication
-# print("Lower triangular matrix: ")
-# lower(matrix, n, n)
-# print('\n')
 
 
 def get_zero_matrix(x):
@@ -89,9 +44,10 @@ def check_connected(x):
 
 def get_cv_list(rep):
     counter = 0
-    for vector in product([1, -1], repeat=rep):
+    for vector in product([1, -1], repeat=rep-1):
         # print(roll)
         cv_list.append(list(vector))
+        cv_list[counter].insert(0, 1)
         counter = counter + 1
     print("There are {} number of colour vectors in the cv_list".format(counter))
 
@@ -107,27 +63,6 @@ def get_graph_int_list(rep):
     print("There total number of graphs are {}".format(counter))
 
     return graph_int_list
-
-
-# def convert_graph_list_to_matrix():
-#     counter = 0
-#
-#     for k in graph_int_list:
-#         for i in range(1, n):
-#             for j in range(0, i):
-#                 zeroes[i][j] = k[counter]
-#                 counter = counter + 1
-#
-#         graph_list.append(zeroes)
-#
-#         counter = counter + 1
-#
-#     print(counter)
-
-
-# print(graph_list)
-# convert_graph_list_to_matrix()
-# print(graph_list)
 
 
 # function that calculates the ending colour vector
@@ -237,14 +172,9 @@ text_file = open("output.csv", "w")
 text_file.write(table_data)
 text_file.close()
 
-print("finished")
+print("Program completed")
 
 # adjacency matrix using a graph library in python
 # looking up properties of graphs like clique and centrality based on the graph's
-
-# have a function which checks whether they are isomorphic and connected(should reduce the time complexity
-# by skipping all teh non connected and te isomorphic ones
-# Also can have a function which checks whether the iteration of this specific type
-# has already been done before.
 
 # and make a new column named cycle then which calculates if same vector repeats or oevr diff ones
