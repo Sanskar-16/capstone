@@ -170,7 +170,8 @@ for g in graph_int_list:
 
 #
 table_data = tabulate(table, headers='firstrow', tablefmt='simple', showindex='always')
-text_file = open("output.csv", "w")
+filename = "..\\output\\output.csv"
+text_file = open(filename, "w+")
 text_file.write(table_data)
 text_file.close()
 
@@ -179,4 +180,4 @@ print("--- %s seconds ---" % (time.time() - start_time))
 # adjacency matrix using a graph library in python
 # looking up properties of graphs like clique and centrality based on the graph's
 
-# and make a new column named cycle then which calculates if same vector repeats or oevr diff ones
+# and make a new column named cycle then which calculates if same vector repeats or over diff ones
