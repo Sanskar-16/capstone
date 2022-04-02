@@ -33,7 +33,7 @@ table = {'Graph number': ['Graph no.', 1],
 def get_zero_matrix(x):
     global zero
     zero = [[0] * x for _ in range(x)]
-    print(zero)
+    print("The zero matrix for {} vertices is {}".format(x, zero))
 
 
 def check_connected(x):
@@ -47,11 +47,10 @@ def check_connected(x):
 def get_cv_list(rep):
     counter = 0
     for vector in product([1, -1], repeat=rep-1):
-        # print(roll)
         cv_list.append(list(vector))
         cv_list[counter].insert(0, 1)
         counter = counter + 1
-    print("There are {} number of colour vectors in the cv_list".format(counter))
+    print("There are {} colour vectors in total for {} vertices".format(counter, n))
 
     return cv_list
 
@@ -59,10 +58,9 @@ def get_cv_list(rep):
 def get_graph_int_list(rep):
     counter = 0
     for graph in product([1, 0], repeat=rep):
-        # print(roll)
         graph_int_list.append(list(graph))
         counter = counter + 1
-    print("There total number of graphs are {}".format(counter))
+    print("There are {} graphs in total for {} vertices".format(counter, n))
 
     return graph_int_list
 
@@ -83,9 +81,6 @@ def check_for_zeroes(x):
             x[k] = color_vector[k]
 
 
-# try to optimize this function by reducing the time complexity
-
-
 def convert_binary_to_decimal():
     strings = [str(integer) for integer in graph_array]
     graph_string = "".join(strings)
@@ -102,11 +97,10 @@ def append_stuff_to_table():
     table['Number of vertices'].append(n)
 
 
-# not trial code
-n = int(input("Enter the number of vertices you want to do this for"))
+n = int(input("Enter the number of vertices you want to do this for - "))
 N = int(1 / 2 * n * (n - 1))
 
-print("The number of vertices(n) is {} which implies n bit binary string(N) is {}".format(n, N))
+print("The number of vertices (n) is {} which implies n bit binary string (N) is {}".format(n, N))
 get_zero_matrix(n)
 get_graph_int_list(N)
 print(graph_int_list)
@@ -127,13 +121,14 @@ for g in graph_int_list:
     zeroes = zeroes + np.matrix.transpose(zeroes)
     print(zeroes)
     matrix = np.array(zeroes)
-    pi = 0
+    # pi = 0
     G = nx.from_numpy_matrix(matrix)
+    graph_no = graph_no + 1
     if nx.is_connected(G):
-        print("this one is connected")
+        print("this graph is connected...")
         for i in range(len(cv_list)):
+            table['Graph number'].append(graph_no)
             pi = pi + 1
-            # print("             Primary iteration {}            ".format(pi))
             temp_list.clear()
             count = 0
             color_vector = np.array(cv_list[i])
@@ -149,24 +144,13 @@ for g in graph_int_list:
                 if next_color_vector not in temp_list:
                     temp_list.append(next_color_vector)
                     count = count + 1
-                    # print("             Secondary iteration {}          ".format(count))
-                    # print("The colour vector for this iteration is {}".format(color_vector))  # negative no -> -1
-                    # print("The resulting 1x5 matrix is {}".format(result), '\n')
                     color_vector = next_color_vector
-                    # print("The colour vector for the next iteration is {}".format(next_color_vector), '\n')
-                    # add an elif here to check if the program loops, whether it loops over 1 cv or a loop of
-                    # different ones to fill up the loop section of the table.
 
                 else:
-                    # print("The colour vector iteration repeats here on this row {}".format(count))
                     calculate_length_of_cycle()
                     break
-
-            # print("The temp_list is {}".format(temp_list))
     else:
-        print("skipped as not connected")
-    graph_no = graph_no + 1
-    table['Graph number'].append(graph_no)
+        print("skipped this graph, because it is not connected.")
 
 #
 table_data = tabulate(table, headers='firstrow', tablefmt='simple', showindex='always')
@@ -179,5 +163,3 @@ print("Program completed")
 print("--- %s seconds ---" % (time.time() - start_time))
 # adjacency matrix using a graph library in python
 # looking up properties of graphs like clique and centrality based on the graph's
-
-# and make a new column named cycle then which calculates if same vector repeats or over diff ones
