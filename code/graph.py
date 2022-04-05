@@ -1,20 +1,17 @@
 # imports
 import numpy as np
 import pandas as pd
-from tabulate import tabulate
 from itertools import product
 import networkx as nx
 import time
 
+# starting the time for which the program shall run
 start_time = time.time()
-# variables
-# array keeps hold of the lower matrix, later helps n conversion from binary to decimal
+
+# declaring all the essential variables and data structures
 graph_array = []
-# counter to check for already existing colour vector variations
 pi = 0
-# a list containing all the color vectors
 cv_list = []
-# result holds the value of the multiplication between the matrix and the colour vector
 result = 0
 next_color_vector = 0
 graph_no = 0
@@ -22,6 +19,8 @@ temp_list = []
 graph_list = []
 graph_int_list = []
 zero = [[]]
+
+# a dictionary which holds the value for all the variables before and after computations
 table = {'Graph number': [],
          'Number of vertices': [],
          'starting colour vertex': [],
@@ -32,12 +31,14 @@ table = {'Graph number': [],
          }
 
 
+# function that creates the required zero matrix on user input
 def get_zero_matrix(x):
     global zero
     zero = [[0] * x for _ in range(x)]
     print("The zero matrix for {} vertices is {}".format(x, zero))
 
 
+# function to get the list of all possible colour vectors
 def get_cv_list(rep):
     counter = 0
     for vector in product([1, -1], repeat=rep - 1):
@@ -51,6 +52,7 @@ def get_cv_list(rep):
     return cv_list
 
 
+# function to get the list of all possible graphs
 def get_graph_int_list(rep):
     counter = 0
     for graph in product([1, 0], repeat=rep):
@@ -89,6 +91,7 @@ colour vector again in the colour vector list.
 '''
 
 
+# function that calculates and appends the values for 'step time' and 'cycle' to the dictionary
 def calculate_length_of_cycle():
     step = len(temp_list) - temp_list.index(next_color_vector)
     length = temp_list.index(next_color_vector) + 1
@@ -98,6 +101,7 @@ def calculate_length_of_cycle():
     table['cycle'].append(length)
 
 
+# another append function for adding rest of the components of the algorithm to the dictionary
 def append_stuff_to_table():
     # graph table appends here
     # convert_binary_to_decimal()
@@ -110,12 +114,13 @@ def append_stuff_to_table():
 n = int(input("Enter the number of vertices you want to do this for - "))
 N = int(1 / 2 * n * (n - 1))
 
-# obtaining all the essential lists based on used input
+# obtaining all the essential lists based on user input
 print("The number of vertices (n) is {} which implies n bit binary string (N) is {}".format(n, N))
 get_zero_matrix(n)
 get_graph_int_list(N)
 get_cv_list(n)
 
+# main algorithm
 for g in graph_int_list:
     zeroes = zero
     graph_counter = 0
@@ -161,6 +166,7 @@ for g in graph_int_list:
 df = pd.DataFrame(table)
 df.to_csv('..\\output\\output.csv', index_label=False)
 
+# calculating and printing the total time it took to run the program
 print("Program completed")
 print("--- %s seconds ---" % (time.time() - start_time))
 # adjacency matrix using a graph library in python
