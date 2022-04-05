@@ -1,5 +1,6 @@
 # imports
 import numpy as np
+import pandas as pd
 from tabulate import tabulate
 from itertools import product
 import networkx as nx
@@ -21,13 +22,13 @@ temp_list = []
 graph_list = []
 graph_int_list = []
 zero = [[]]
-table = {'Graph number': ['Graph no.', 1],
-         'Number of vertices': ['nov', 1],
-         'starting colour vertex': ['Starting cv', 1],
-         'ending colour vertex': ['Ending cv', 1],
-         'loop': ['Loop', 1],
-         'cycle': ['Cycle', 1],
-         'step time': ['Step time', 1]
+table = {'Graph number': [],
+         'Number of vertices': [],
+         'starting colour vertex': [],
+         'ending colour vertex': [],
+         'loop': [],
+         'cycle': [],
+         'step time': []
          }
 
 
@@ -137,7 +138,6 @@ for g in graph_int_list:
     zeroes = zeroes + np.matrix.transpose(zeroes)
     print(zeroes)
     matrix = np.array(zeroes)
-    # pi = 0
     G = nx.from_numpy_matrix(matrix)
     graph_no = graph_no + 1
     if nx.is_connected(G):
@@ -168,11 +168,8 @@ for g in graph_int_list:
         print("skipped this graph, because it is not connected.")
 
 # converting all the computations in a tabular format
-table_data = tabulate(table, headers='firstrow', tablefmt='simple', showindex='always')
-filename = "..\\output\\output.csv"
-text_file = open(filename, "w+")
-text_file.write(table_data)
-text_file.close()
+df = pd.DataFrame(table)
+df.to_csv('..\\output\\output.csv', index_label=False)
 
 print("Program completed")
 print("--- %s seconds ---" % (time.time() - start_time))

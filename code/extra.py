@@ -81,3 +81,10 @@
 # zeros = np.matrix(zeros)
 # zeros = zeros + np.matrix.transpose(zeros)
 # print(zeros)
+
+# TABULATE FUNCTION
+# table_data = tabulate(table, headers='keys', tablefmt='simple', showindex='always')
+# filename = "..\\output\\output.csv"
+# text_file = open(filename, "w+")
+# text_file.write(table_data)
+# text_file.close()
