@@ -164,7 +164,7 @@ for g in graph_int_list:
 
 # converting all the computations in a tabular format
 df = pd.DataFrame(table)
-df.to_csv('..\\output\\output.csv', index_label=False)
+df.to_csv('..\\output\\output.csv', index=False)
 
 # calculating and printing the total time it took to run the program
 print("Program completed")
