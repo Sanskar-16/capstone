@@ -88,3 +88,13 @@
 # text_file = open(filename, "w+")
 # text_file.write(table_data)
 # text_file.close()
+
+
+# BINARY TO DECIMAL
+# def convert_binary_to_decimal():
+#     strings = [str(integer) for integer in graph_array]
+#     graph_string = "".join(strings)
+#     # print("The graph number in binary is {}".format(graph_string))
+#     graph_num_in_dec = int(graph_string, 2)
+#     # print("The converted graph number from binary to decimal is {}".format(graph_num_in_dec))
+#     table['Graph number'].append(graph_num_in_dec)

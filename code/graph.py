@@ -79,15 +79,6 @@ def check_for_zeroes(x):
             x[k] = color_vector[k]
 
 
-# def convert_binary_to_decimal():
-#     strings = [str(integer) for integer in graph_array]
-#     graph_string = "".join(strings)
-#     # print("The graph number in binary is {}".format(graph_string))
-#     graph_num_in_dec = int(graph_string, 2)
-#     # print("The converted graph number from binary to decimal is {}".format(graph_num_in_dec))
-#     table['Graph number'].append(graph_num_in_dec)
-
-
 '''
 step calculates the number of steps it takes for the algorithm to reach the same vector after it starts looping a
 vector, if the algorithm loops on the same vector, it will show 1. Otherwise, step would be number of vectors between
@@ -124,7 +115,6 @@ print("The number of vertices (n) is {} which implies n bit binary string (N) is
 get_zero_matrix(n)
 get_graph_int_list(N)
 get_cv_list(n)
-
 
 for g in graph_int_list:
     zeroes = zero
