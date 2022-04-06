@@ -58,6 +58,9 @@ def get_graph_int_list(rep):
     for graph in product([1, 0], repeat=rep):
         graph_int_list.append(list(graph))
         counter = counter + 1
+        # additional counter for higher number if vertices
+        # if counter == 30000:
+        #     break
     print("There are {} graphs in total for {} vertices".format(counter, n))
     print(graph_int_list)
     print('\n')
@@ -103,8 +106,6 @@ def calculate_length_of_cycle():
 
 # another append function for adding rest of the components of the algorithm to the dictionary
 def append_stuff_to_table():
-    # graph table appends here
-    # convert_binary_to_decimal()
     table['starting colour vertex'].append(cv_list[i])
     table['Number of vertices'].append(n)
     table['Graph number'].append(graph_no)
