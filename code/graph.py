@@ -58,9 +58,9 @@ def get_graph_int_list(rep):
     for graph in product([1, 0], repeat=rep):
         graph_int_list.append(list(graph))
         counter = counter + 1
-        # additional counter for higher number if vertices
-        # if counter == 30000:
-        #     break
+        # additional counter for higher number of vertices
+        if counter == 30000:
+            break
     print("There are {} graphs in total for {} vertices".format(counter, n))
     print(graph_int_list)
     print('\n')
