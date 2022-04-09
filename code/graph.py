@@ -20,11 +20,11 @@ graph_int_list = []
 zero = [[]]
 
 # a dictionary which holds the value for all the variables before and after computations
-table = {'Graph number': [],
-         'Number of vertices': [],
-         'starting colour vertex': [],
-         'ending colour vertex': [],
-         'step time': [],
+table = {'Graph_number': [],
+         'Number_of_vertices': [],
+         'starting_colour_vertex': [],
+         'ending_colour_vertex': [],
+         'step_time': [],
          'cycle': []
          }
 
@@ -96,16 +96,16 @@ colour vector again in the colour vector list.
 def calculate_length_of_cycle():
     length = len(temp_list) - temp_list.index(next_color_vector)
     step = temp_list.index(next_color_vector) + 1
-    table['ending colour vertex'].append(next_color_vector)
-    table['step time'].append(step)
+    table['ending_colour_vertex'].append(next_color_vector)
+    table['step_time'].append(step)
     table['cycle'].append(length)
 
 
 # another append function for adding rest of the components of the algorithm to the dictionary
 def append_stuff_to_table():
-    table['starting colour vertex'].append(cv_list[i])
-    table['Number of vertices'].append(n)
-    table['Graph number'].append(graph_no)
+    table['starting_colour_vertex'].append(cv_list[i])
+    table['Number_of_vertices'].append(n)
+    table['Graph_number'].append(graph_no)
 
 
 # taking input from the user
