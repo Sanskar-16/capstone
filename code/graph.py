@@ -10,7 +10,6 @@ start_time = time.time()
 
 # declaring all the essential variables and data structures
 graph_array = []
-pi = 0
 cv_list = []
 result = 0
 next_color_vector = 0
@@ -25,9 +24,8 @@ table = {'Graph number': [],
          'Number of vertices': [],
          'starting colour vertex': [],
          'ending colour vertex': [],
-         'loop': [],
-         'cycle': [],
-         'step time': []
+         'step time': [],
+         'cycle': []
          }
 
 
@@ -96,10 +94,9 @@ colour vector again in the colour vector list.
 
 # function that calculates and appends the values for 'step time' and 'cycle' to the dictionary
 def calculate_length_of_cycle():
-    step = len(temp_list) - temp_list.index(next_color_vector)
-    length = temp_list.index(next_color_vector) + 1
+    length = len(temp_list) - temp_list.index(next_color_vector)
+    step = temp_list.index(next_color_vector) + 1
     table['ending colour vertex'].append(next_color_vector)
-    table['loop'].append('yes')
     table['step time'].append(step)
     table['cycle'].append(length)
 
@@ -139,7 +136,6 @@ for g in graph_int_list:
     if nx.is_connected(G):
         print("this graph is connected...")
         for i in range(len(cv_list)):
-            pi = pi + 1
             temp_list.clear()
             count = 0
             color_vector = np.array(cv_list[i])
