@@ -22,8 +22,8 @@ zero = [[]]
 # a dictionary which holds the value for all the variables before and after computations
 table = {'Graph_number': [],
          'Number_of_vertices': [],
-         'starting_colour_vertex': [],
-         'ending_colour_vertex': [],
+         'starting_colour_vector': [],
+         'ending_colour_vector': [],
          'step_time': [],
          'cycle': []
          }
@@ -96,14 +96,14 @@ colour vector again in the colour vector list.
 def calculate_length_of_cycle():
     length = len(temp_list) - temp_list.index(next_color_vector)
     step = temp_list.index(next_color_vector) + 1
-    table['ending_colour_vertex'].append(next_color_vector)
+    table['ending_colour_vector'].append(next_color_vector)
     table['step_time'].append(step)
     table['cycle'].append(length)
 
 
 # another append function for adding rest of the components of the algorithm to the dictionary
 def append_stuff_to_table():
-    table['starting_colour_vertex'].append(cv_list[i])
+    table['starting_colour_vector'].append(cv_list[i])
     table['Number_of_vertices'].append(n)
     table['Graph_number'].append(graph_no)
 
