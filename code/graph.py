@@ -75,7 +75,7 @@ def check_connected(x):
             break
 
 
-# function checking for 0s in the color_vector and replacing them with i of the previous color_vector
+# function checking for 0s in the color_vector and replacing them with the same index of the previous color_vector
 def check_for_zeroes(x):
     for k in range(len(x)):
         if x[k] == 0:
@@ -83,11 +83,11 @@ def check_for_zeroes(x):
 
 
 '''
-step calculates the number of steps it takes for the algorithm to reach the same vector after it starts looping a
+length calculates the number of steps it takes for the algorithm to reach the same vector after it starts looping a
 vector, if the algorithm loops on the same vector, it will show 1. Otherwise, step would be number of vectors between
 the starting loop vector and when it occurs again.
 
-whereas the length var, it calculates the number of steps it takes for teh algorithm to reach teh starting
+whereas step calculates the number of steps it takes for the algorithm to reach the starting
 colour vector again in the colour vector list.
 '''
 
@@ -102,7 +102,7 @@ def calculate_length_of_cycle():
 
 
 # another append function for adding rest of the components of the algorithm to the dictionary
-def append_stuff_to_table():
+def append_to_table():
     table['starting_colour_vector'].append(cv_list[i])
     table['Number_of_vertices'].append(n)
     table['Graph_number'].append(graph_no)
@@ -139,7 +139,7 @@ for g in graph_int_list:
             temp_list.clear()
             count = 0
             color_vector = np.array(cv_list[i])
-            append_stuff_to_table()
+            append_to_table()
 
             while True:
                 result = np.matmul(matrix, color_vector)
@@ -161,7 +161,7 @@ for g in graph_int_list:
 
 # converting all the computations in a tabular format
 df = pd.DataFrame(table)
-df.to_csv('..\\output\\10v.csv', index=False)
+df.to_csv('..\\output\\5v.csv', index=False)
 
 # calculating and printing the total time it took to run the program
 print("Program completed")
