@@ -57,7 +57,7 @@ def get_graph_int_list(rep):
         graph_int_list.append(list(graph))
         counter = counter + 1
         # additional counter for higher number of vertices
-        if counter == 30000:
+        if counter == 10000:
             break
     print("There are {} graphs in total for {} vertices".format(counter, n))
     print(graph_int_list)
@@ -161,17 +161,13 @@ for g in graph_int_list:
 
 # converting all the computations in a tabular format
 df = pd.DataFrame(table)
-df.to_csv('..\\output\\output.csv', index=False)
+df.to_csv('..\\output\\10v.csv', index=False)
 
 # calculating and printing the total time it took to run the program
 print("Program completed")
 print("--- %s seconds ---" % (time.time() - start_time))
-# adjacency matrix using a graph library in python
-# looking up properties of graphs like clique and centrality based on the graph's
-# run for 7/8 and look for a loop bigger than 2
-# data analysis on loop size and other properties for all the graphs(percent of all the loop size 1 graphs)
-# insights from teh above analysis
-# majority from colour 1 to colour 2
-# cycle - no of rows DONE
-# look for a dataset on which it could be implemented
-# include what else could have been added to the report
+
+
+
+
+
