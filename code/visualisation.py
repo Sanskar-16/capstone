@@ -18,7 +18,8 @@ class GraphVisualization:
     def visualize(self):
         G = nx.Graph()
         G.add_edges_from(self.visual)
-        color_list = ["blue", "red", "blue", "red"]
+        color_list = ["black","black","black","black",]
+        # color_list = ["blue", "red", "black", "red"]
         nx.draw_networkx(G, node_color=color_list, node_size=400, alpha=0.9, with_labels=True,
                          font_color='white')
         plt.show()
@@ -26,9 +27,11 @@ class GraphVisualization:
 
 # Driver code
 G = GraphVisualization()
-G.addEdge('B', 'D')
-G.addEdge('D', 'A')
-G.addEdge('A', 'C')
-G.addEdge('C', 'B')
+G.addEdge('E', 'F')
+G.addEdge('F', 'G')
+G.addEdge('G', 'H')
+G.addEdge('H', 'E')
+
+
 
 G.visualize()
