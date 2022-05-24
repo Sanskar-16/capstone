@@ -137,3 +137,4 @@ dmypy.json
 *.tmp
 output/
 report/Introduction.docx
+.vscode/
